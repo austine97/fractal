@@ -6,14 +6,13 @@
 /*   By: ybouzgao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 15:51:47 by ybouzgao          #+#    #+#             */
-/*   Updated: 2018/03/29 21:28:51 by ybouzgao         ###   ########.fr       */
+/*   Updated: 2018/03/31 18:27:06 by ybouzgao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTAL_H
 # define FRACTAL_H
 
-# define ITERATION_MAX 100
 # include "mlx.h"
 # include "libft/libft.h"
 # include <fcntl.h>
@@ -27,6 +26,7 @@ typedef struct s_fract
 	float	z_i;
 	int		k;
 	int		zoom;
+	float	zoom_inc;
 	float	zoom_x;
 	float	zoom_y;
 	float	tmp;
@@ -37,6 +37,10 @@ typedef struct s_fract
 	float	X2;
 	float	Y1;
 	float	Y2;
+	float	JX1;
+	float	JX2;
+	float	JY1;
+	float	JY2;
 	int		endian;
 	void	*mlx;
 	void	*win;
@@ -44,5 +48,9 @@ typedef struct s_fract
 	int		*img_string;
 
 }				t_fract;
+
+int		ft_zoom_mouse(int button, int x, int y, t_fract *fract);
+void	draw_mandelbrot(t_fract fract);
+void	julia(t_fract fract);
 
 #endif
