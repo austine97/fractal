@@ -6,11 +6,12 @@
 /*   By: ybouzgao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 15:47:24 by ybouzgao          #+#    #+#             */
-/*   Updated: 2018/03/31 18:36:02 by ybouzgao         ###   ########.fr       */
+/*   Updated: 2018/04/04 22:11:11 by ybouzgao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractal.h"
+#include <stdio.h>
 
 float		draw_color(t_fract fract, int a, int i)
 {
@@ -56,6 +57,7 @@ void	draw_mandelbrot(t_fract fract)
 				fract.img_string[j * 1000 + i] = draw_color(fract, 1, fract.k);
 		}
 	}
+	printf("zoomx: %f, zoomy: %f\n", fract.zoom_x, fract.zoom_y);
 	mlx_put_image_to_window(fract.mlx, fract.win, fract.img, 0, 0);
 }
 
@@ -93,6 +95,7 @@ int		ft_interactions2(int keycode, t_fract *fract)
 	fract->img_string = (int*)mlx_get_data_addr(fract->img, &(fract->bpp), &(fract->s_l), &(fract->endian));
 	mlx_clear_window(fract->mlx, fract->win);
 	draw_mandelbrot(*fract);
+	//julia(*fract);
 	return (0);
 }
 
@@ -112,8 +115,8 @@ int		main(void)
 {
 	t_fract fract;
 
-	fract.iterations = 150;	
-	fract.zoom = 100;
+	fract.iterations = 10;	
+	fract.zoom = 1000;
 	fract.X1 = -2.1;
 	fract.X2 = 0.6;
 	fract.zoom_inc = 1;
@@ -127,10 +130,10 @@ int		main(void)
 	fract.win = mlx_new_window(fract.mlx, 1000, 1000, "Fractal_Mandelbrot");
 	fract.img = mlx_new_image(fract.mlx, 1000, 1000);	
 	fract.img_string = (int*)mlx_get_data_addr(fract.img, &(fract.bpp), &(fract.s_l), &(fract.endian));
-//	draw_mandelbrot(fract);
-	julia(fract);
+	draw_mandelbrot(fract);
+//	julia(fract);
 	mlx_hook(fract.win,2, (1L << 0), ft_interactions, (void *)&fract);
 	mlx_mouse_hook(fract.win, ft_zoom_mouse, (void *)&fract);
 	mlx_loop(fract.mlx);
 	return (0);
-}
+};
