@@ -6,7 +6,7 @@
 /*   By: ybouzgao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 15:47:24 by ybouzgao          #+#    #+#             */
-/*   Updated: 2018/04/04 22:11:11 by ybouzgao         ###   ########.fr       */
+/*   Updated: 2018/04/05 17:39:48 by ybouzgao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ int		ft_interactions2(int keycode, t_fract *fract)
 	fract->img = mlx_new_image(fract->mlx, 1000, 1000);
 	fract->img_string = (int*)mlx_get_data_addr(fract->img, &(fract->bpp), &(fract->s_l), &(fract->endian));
 	mlx_clear_window(fract->mlx, fract->win);
-	draw_mandelbrot(*fract);
-	//julia(*fract);
+	//draw_mandelbrot(*fract);
+	julia(*fract);
 	return (0);
 }
 
@@ -115,9 +115,12 @@ int		main(void)
 {
 	t_fract fract;
 
-	fract.iterations = 10;	
+	fract.c_r = 0.285;
+	fract.c_i = 0.01;
+	fract.iterations = 30;	
 	fract.zoom = 1000;
 	fract.X1 = -2.1;
+	fract.julia_change = 1;
 	fract.X2 = 0.6;
 	fract.zoom_inc = 1;
 	fract.Y1 = -1.2;
@@ -130,10 +133,11 @@ int		main(void)
 	fract.win = mlx_new_window(fract.mlx, 1000, 1000, "Fractal_Mandelbrot");
 	fract.img = mlx_new_image(fract.mlx, 1000, 1000);	
 	fract.img_string = (int*)mlx_get_data_addr(fract.img, &(fract.bpp), &(fract.s_l), &(fract.endian));
-	draw_mandelbrot(fract);
-//	julia(fract);
+//	draw_mandelbrot(fract);
+	julia(fract);
 	mlx_hook(fract.win,2, (1L << 0), ft_interactions, (void *)&fract);
 	mlx_mouse_hook(fract.win, ft_zoom_mouse, (void *)&fract);
+//	mlx_loop_hook(fract.mlx, ft_loop_julia, (void *)&fract);
 	mlx_loop(fract.mlx);
 	return (0);
-};
+}

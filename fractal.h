@@ -6,7 +6,7 @@
 /*   By: ybouzgao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 15:51:47 by ybouzgao          #+#    #+#             */
-/*   Updated: 2018/04/04 19:39:28 by ybouzgao         ###   ########.fr       */
+/*   Updated: 2018/04/05 18:32:29 by ybouzgao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ typedef struct s_fract
 {
 	float	c_r;
 	float	c_i;
+	float	nz_r;
 	float	z_r;
 	float	z_i;
 	int		k;
+	int		mousex;
+	int		mousey;
 	float	zoom;
 	float	zoom_inc;
 	float	zoom_x;
@@ -50,6 +53,7 @@ typedef struct s_fract
 	float	disty;
 	float	deltai;
 	float	deltaj;
+	int		julia_change;
 
 }				t_fract;
 
@@ -57,5 +61,6 @@ int		ft_zoom_mouse(int button, int x, int y, t_fract *fract);
 void	draw_mandelbrot(t_fract fract);
 void	julia(t_fract fract);
 float	draw_color(t_fract fract, int a, int i);
+int		ft_loop_julia(t_fract *fract);
 
 #endif
